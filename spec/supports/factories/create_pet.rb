@@ -4,7 +4,7 @@ require_relative '../factories/create_category.rb'
 
 FactoryBot.define do
     factory :CreatePet, class: ModelCreatePet  do
-        id        {0}
+        id        {Faker::Number.number(digits: 10)}
         category  {attributes_for(:CreateCategory)}
         name      {Faker::Name.neutral_first_name}
         photoUrls {}

@@ -25,6 +25,17 @@ class PetApi
         response = without_authentication('get', uri)
     end
 
+    def post_to_update(petid, name, status)
+        uri = "#{ENV['BASE_URI']}/pet/#{petid}"
+        body = "name=#{name}&status=#{status}"
+        response = without_authentication('post', uri, body, 'application/x-www-form-urlencoded')
+    end
+
+    def put_to_update(body)
+        uri = "#{ENV['BASE_URI']}/pet"
+        response = without_authentication('put', uri, body.to_json)
+    end
+
     def delete_pet(petid)
         uri = "#{ENV['BASE_URI']}/pet/#{petid}"
         response = without_authentication('delete', uri)
