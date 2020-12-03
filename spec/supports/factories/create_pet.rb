@@ -9,23 +9,17 @@ FactoryBot.define do
         name      {Faker::Name.neutral_first_name}
         photoUrls {}
         tags      {[attributes_for(:CreateTag)]}
-        status    {"sold"}        
+        status    {"sold"}   
+
+        trait :status_available do
+            status { "available"}
+        end
+
+        trait :status_pending do
+            status { "pending" }
+        end
+
+        factory :new_status_pending,   traits: [:status_pending]
+        factory :new_status_available, traits: [:status_available]
     end
 end
-
-#     trait :available do
-#         status { "available"}
-#     end
-
-#     trait :pending do
-#         status { "pending" }
-#     end
-
-#     trait :sold do
-#         status { "sold" }
-#     end
-# end
-
-    # trait do
-    #     status { "sold" }
-    # end

@@ -2,15 +2,29 @@ require_relative "../../app/pet_api.rb"
 require_relative "../supports/factories/create_pet.rb"
 
 describe 'suite teste' do
-    subject (:pet) { PetApi.new }
+    subject (:pet)   { PetApi.new }
     let(:create_pet) {pet.add_pet(attributes_for(:CreatePet))}
-    let(:update_pet_data) {attributes_for(:CreatePet)}
+    let(:pet_generate)   {attributes_for(:CreatePet)}
 
     context 'add pet' do
-        it 'add a pet in the store' do
-            pet = create_pet
-            expect(pet.code).to eq(200)
-            expect(pet["id"]).not_to be_nil          
+        it 'add a pet in the store with status sold' do
+            new_pet = create_pet
+            expect(new_pet.code).to eq(200)
+            expect(new_pet["id"]).not_to be_nil          
+        end
+
+        it 'add a pet in the store with status pending' do
+            new_pet = pet.add_pet(attributes_for(:new_status_pending))
+            puts new_pet
+            expect(new_pet.code).to eq(200)
+            # expect(new_pet["id"]).not_to be_nil          
+        end
+
+        it 'add a pet in the store with status available' do
+            new_pet = pet.add_pet(attributes_for(:new_status_available))
+            puts new_pet
+            expect(new_pet.code).to eq(200)
+            # expect(new_pet["id"]).not_to be_nil          
         end
     end
 
@@ -52,8 +66,13 @@ describe 'suite teste' do
         end
 
         it 'update pet data using put' do
-            update_pet_data = pet.put_to_update(update_pet_data)
+            pet_data = pet.add_pet(pet_generate)
+            pet_generate['name'] = 'Diego'
+            pet_generate['status'] = 'available'
+            update_pet_data = pet.put_to_update(pet_generate)
+            puts update_pet_data
             expect(update_pet_data.code).to eq(200)
+            # expect(update_pet_data.map { |value| value[0]['status'] == 'available'}.uniq).to eq(true)
         end
     end
 
