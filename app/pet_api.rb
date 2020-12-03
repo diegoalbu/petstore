@@ -1,7 +1,7 @@
 class PetApi
 
-    def teste_get
-        url = URI("https://petstore.swagger.io/v2/pet/922337203685477580")
+    def teste_get(petid)
+        url = URI("https://petstore.swagger.io/v2/pet/#{petid}")
         https = Net::HTTP.new(url.host, url.port)
         https.use_ssl = true
         request = Net::HTTP::Get.new(url)
@@ -15,8 +15,8 @@ class PetApi
         response = without_authentication('post', uri, body.to_json)
     end
 
-    def get_pet(petid)
-        uri = "#{ENV['BASE_URI']}/pet/#{petid}"
+    def get_pet(pet_id)
+        uri = "#{ENV['BASE_URI']}/pet/#{pet_id}"
         response = without_authentication('get', uri)
     end
 
@@ -25,8 +25,8 @@ class PetApi
         response = without_authentication('get', uri)
     end
 
-    def post_to_update(petid, name, status)
-        uri = "#{ENV['BASE_URI']}/pet/#{petid}"
+    def post_to_update(pet_id, name, status)
+        uri = "#{ENV['BASE_URI']}/pet/#{pet_id}"
         body = "name=#{name}&status=#{status}"
         response = without_authentication('post', uri, body, 'application/x-www-form-urlencoded')
     end
@@ -36,8 +36,8 @@ class PetApi
         response = without_authentication('put', uri, body.to_json)
     end
 
-    def delete_pet(petid)
-        uri = "#{ENV['BASE_URI']}/pet/#{petid}"
+    def delete_pet(pet_id)
+        uri = "#{ENV['BASE_URI']}/pet/#{pet_id}"
         response = without_authentication('delete', uri)
     end
 end
