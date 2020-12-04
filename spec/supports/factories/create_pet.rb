@@ -7,7 +7,7 @@ FactoryBot.define do
         id        {Faker::Number.number(digits: 10)}
         category  {attributes_for(:CreateCategory)}
         name      {Faker::Name.neutral_first_name}
-        photoUrls {}
+        photoUrls {[Faker::Internet.url]}
         tags      {[attributes_for(:CreateTag)]}
         status    {"sold"}   
 
